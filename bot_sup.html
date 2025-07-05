@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ADCとサポートの相性検索</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input, button { font-size: 1rem; padding: 5px; margin: 5px 0; }
+    #result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h1>ADCと相性のいいサポート検索</h1>
+  <input type="text" id="adcInput" placeholder="例: Jhin">
+  <button onclick="searchSupport()">検索</button>
+
+  <div id="result"></div>
+
+  <script>
+    // ADCと相性の良いサポート一覧
+    const adcSupportData = {
+      "jinx": ["Lulu", "Thresh", "Nami"],
+      "kai'sa": ["Leona", "Nautilus", "Alistar"],
+      "lucian": ["Nami", "Milio", "Braum"],
+      "jhin": ["Nami", "Xerath", "Morgana"],
+      "ezreal": ["Yuumi", "Karma", "Nautilus"],
+      "aphelios": ["Thresh", "Lulu", "Renata Glasc"],
+      "caitlyn": ["Lux", "Morgana", "Zyra"],
+      "samira": ["Rell", "Alistar", "Nautilus"]
+    };
+
+    function normalize(input) {
+      return input.toLowerCase().replace(/[Ａ-Ｚａ-ｚ]/g, s =>
+        String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
+      );
+    }
+
+    function searchSupport() {
+      const input = document.getElementById("adcInput").value.trim();
+      const normalized = normalize(input);
+      const resultDiv = document.getElementById("result");
+
+      if (adcSupportData[normalized]) {
+        const supports = adcSupportData[normalized];
+        resultDiv.innerHTML = `相性のいいサポート: ${supports.join(", ")}`;
+      } else {
+        resultDiv.innerHTML = "そのADCのデータは見つかりませんでした。";
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -40,10 +40,9 @@
     }
 
     function normalize(input) {
-      return input.toLowerCase().replace(/[Ａ-Ｚａ-ｚ]/g, s =>
-        String.fromCharCode(s.charCodeAt(0) - 0xFEE0)
-      );
+    return input.trim(); // 日本語では小文字変換などは不要
     }
+
 
     function searchSupport() {
       const input = document.getElementById("adcInput").value.trim();
